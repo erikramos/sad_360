@@ -1,0 +1,16 @@
+#conteudo_geral{
+
+	width: 100%;
+}
+
+#conteudo_topo{
+
+	background-color: #333;
+}
+
+#conteudo_central{
+
+	width: 90%;
+	margin: auto;
+	margin-top : 20px;
+}
