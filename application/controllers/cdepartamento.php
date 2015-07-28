@@ -2,7 +2,7 @@
 
 include("cbase.php");
 
-class CCargo extends cbase {
+class CDepartamento extends cbase {
 
 	// Layout default utilizado pelo controlador.
 	public $layout = 'default';
@@ -23,7 +23,6 @@ class CCargo extends cbase {
    	}
 
    	function index(){
-
    		$this->listar();
    	}
 
@@ -32,16 +31,7 @@ class CCargo extends cbase {
 		$this->layout = 'default';					//informa qual template utilizar para carregar a view dentro
 		$this->title = '::: SAD-360 :::';			//informa o titulo da pagina
 		$this->css = array('Template/template');	//informa o arquivo css a ser carregado com layout da pagina
-		$this->js = array('Cargo/listar');			//informa o arquivo js com scripts de execução da pagina
-		$this->load->view('Cargo/listar');			//carrega a view
+		$this->js = array('Departamento/listar');			//informa o arquivo js com scripts de execução da pagina
+		$this->load->view('Departamento/listar');			//carrega a view
 	}
-
-	function ajaxBuscarCargos(){
-
-		$this->load->model('Cargo');
-		$dados = $this->Cargo->gridCargos();
-
-		echo json_encode($dados);
-		die();
-   	}
 }

@@ -20,15 +20,17 @@
         <li <?php if((strpos(uri_string(), "cavaliacao") !== false) ||
                     (strpos(uri_string(), "cusuario") !== false) ||
                     (strpos(uri_string(), "ccargo") !== false) ||
+                    (strpos(uri_string(), "cdepartamento") !== false) ||
                     (strpos(uri_string(), "cperfil") !== false)) echo 'class="active"'; ?> class="dropdown">
 
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Cadastros <span class="caret"></span></a>
           <ul class="dropdown-menu" role="menu">
             <li <?php if(strpos(uri_string(), "cavaliacao") !== false) echo 'class="active"'; ?> ><a href=<?php echo base_url("index.php/cavaliacao/listar") ?> >Avalia&ccedil;&otilde;es</a></li>
             <li class="divider"></li>
-            <li <?php if(strpos(uri_string(), "cusuario") !== false) echo 'class="active"'; ?> ><a href=<?php echo base_url("index.php/cusuario/listar") ?> >Usu&aacute;rios</a></li>
             <li <?php if(strpos(uri_string(), "ccargo") !== false) echo 'class="active"'; ?> ><a href=<?php echo base_url("index.php/ccargo/listar") ?> >Cargos</a></li>
+            <li <?php if(strpos(uri_string(), "cdepartamento") !== false) echo 'class="active"'; ?> ><a href=<?php echo base_url("index.php/cdepartamento/listar") ?> >Departamentos</a></li>
             <li <?php if(strpos(uri_string(), "cperfil") !== false) echo 'class="active"'; ?> ><a href=<?php echo base_url("index.php/cperfil/listar") ?> >Perfis</a></li>
+            <li <?php if(strpos(uri_string(), "cusuario") !== false) echo 'class="active"'; ?> ><a href=<?php echo base_url("index.php/cusuario/listar") ?> >Usu&aacute;rios</a></li>
           </ul>
         </li>
       </ul>
