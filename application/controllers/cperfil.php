@@ -34,4 +34,13 @@ class CPerfil extends cbase {
 		$this->js = array('Perfil/listar');			//informa o arquivo js com scripts de execução da pagina
 		$this->load->view('Perfil/listar');			//carrega a view
 	}
+
+	function ajaxBuscarPerfis(){
+
+		$this->load->model('Perfil');
+		$dados = $this->Perfil->gridPerfis();
+
+		echo json_encode($dados);
+		die();
+   	}
 }

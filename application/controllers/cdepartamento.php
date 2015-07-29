@@ -34,4 +34,13 @@ class CDepartamento extends cbase {
 		$this->js = array('Departamento/listar');			//informa o arquivo js com scripts de execução da pagina
 		$this->load->view('Departamento/listar');			//carrega a view
 	}
+
+	function ajaxBuscarDepartamentos(){
+
+		$this->load->model('Departamento');
+		$dados = $this->Departamento->gridDepartamentos();
+
+		echo json_encode($dados);
+		die();
+   	}
 }

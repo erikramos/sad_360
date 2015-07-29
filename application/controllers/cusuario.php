@@ -34,4 +34,13 @@ class CUsuario extends cbase {
 		$this->js = array('Usuario/listar');			//informa o arquivo js com scripts de execução da pagina
 		$this->load->view('Usuario/listar');			//carrega a view
 	}
+
+	function ajaxBuscarUsuarios(){
+
+		$this->load->model('Usuario');
+		$dados = $this->Usuario->gridUsuarios();
+
+		echo json_encode($dados);
+		die();
+   	}
 }

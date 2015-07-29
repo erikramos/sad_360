@@ -1,6 +1,6 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class Cargo extends CI_Model {
+class Usuario extends CI_Model {
 
     var $descricao   = '';
     var $atribuicoes = '';
@@ -10,10 +10,10 @@ class Cargo extends CI_Model {
         parent::__construct();
     }
 
-    function gridCargos()
+    function gridUsuarios()
     {
 
-        $query = $this->db->get('cargo', 100);
+        $query = $this->db->get('usuario', 100);
         $ret = $query->result();
 
         $dados = array();
@@ -21,9 +21,11 @@ class Cargo extends CI_Model {
 
         foreach ($ret as $key => $value) {
 
-            $dados['dados'][$i][] = $value->ca_id;
-            $dados['dados'][$i][] = $value->ca_descricao;
-            $dados['dados'][$i][] = $value->ca_atribuicoes;
+            $dados['dados'][$i][] = $value->us_id;
+            $dados['dados'][$i][] = $value->us_nome;
+            $dados['dados'][$i][] = $value->us_login;
+            $dados['dados'][$i][] = 'cargo';
+            $dados['dados'][$i][] = 'perfil';
             $i++;
         }
 
