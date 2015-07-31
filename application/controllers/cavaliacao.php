@@ -34,4 +34,13 @@ class CAvaliacao extends cbase {
 		$this->js = array('Avaliacao/listar');			//informa o arquivo js com scripts de execução da pagina
 		$this->load->view('Avaliacao/listar');			//carrega a view
 	}
+
+	function ajaxBuscarAvaliacoes(){
+
+		$this->load->model('Avaliacao');
+		$dados = $this->Avaliacao->gridAvaliacoes();
+
+		echo json_encode($dados);
+		die();
+   	}
 }
