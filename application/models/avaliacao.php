@@ -13,6 +13,12 @@ class Avaliacao extends CI_Model {
     function gridAvaliacoes()
     {
 
+        $status = array(
+            0=>'<font color="red">Inativa</font>',
+            1=>'<font color="green">Ativa</font>',
+            2=>'<font color="blue">Finalizada</font>'
+        );
+
         $query = $this->db->get('avaliacao', 100);
         $ret = $query->result();
 
@@ -25,6 +31,8 @@ class Avaliacao extends CI_Model {
             $dados['dados'][$i][] = $value->av_titulo;
             $dados['dados'][$i][] = $value->av_descricao;
             $dados['dados'][$i][] = $value->av_data_cadastro;
+            $dados['dados'][$i][] = $status[$value->av_status];
+            $dados['dados'][$i][] = 'botoes';
             $i++;
         }
 

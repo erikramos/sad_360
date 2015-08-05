@@ -4,7 +4,9 @@
             <th>Id</th>
             <th>Titulo</th>
             <th>Descricao</th>
-            <th>Data</th>
+            <th>Data Cadastro</th>
+            <th>Status</th>
+            <th>Op&ccedil;&otilde;es</th>
         </tr>
     </thead>
 
@@ -13,7 +15,9 @@
             <th>Id</th>
             <th>Titulo</th>
             <th>Descricao</th>
-            <th>Data</th>
+            <th>Data Cadastro</th>
+            <th>Status</th>
+            <th>Op&ccedil;&otilde;es</th>
         </tr>
     </tfoot>
 </table>
