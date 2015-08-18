@@ -39,6 +39,38 @@ class Avaliacao extends CI_Model {
         return $dados;
     }
 
+    function gridAvaliacoesPainel()
+    {
+
+        $status = array(
+            0=>'<font color="red">Inativa</font>',
+            1=>'<font color="green">Ativa</font>',
+            2=>'<font color="blue">Finalizada</font>'
+        );
+
+        $this->db->select('*');
+        $this->db->from('avaliacao');
+        $this->db->where('av_status', '1');
+        $query = $this->db->get();
+        $ret = $query->result();
+
+        $dados = array();
+        $i = 0;
+
+        foreach ($ret as $key => $value) {
+
+            $dados['dados'][$i][] = $value->av_id;
+            $dados['dados'][$i][] = $value->av_titulo;
+            $dados['dados'][$i][] = $value->av_descricao;
+            $dados['dados'][$i][] = $value->av_data_cadastro;
+            $dados['dados'][$i][] = $status[$value->av_status];
+            $dados['dados'][$i][] = 'botoes';
+            $i++;
+        }
+
+        return $dados;
+    }
+
     function insert_entry()
     {
         $this->title   = $_POST['title']; // please read the below note

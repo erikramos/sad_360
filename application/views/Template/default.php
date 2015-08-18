@@ -40,6 +40,12 @@
 	    <!-- DataTables -->
 	    <script type="text/javascript" src=<?php echo base_url("application/assets/libs/js/DataTables/jquery.dataTables.js") ?> ></script>
 	    <script type="text/javascript" src=<?php echo base_url("application/assets/libs/js/DataTables/responsive.dataTables.js") ?> ></script>
+
+	    <!-- criando variavel pra receber caminho padrao url no javascript -->
+	    <script type="text/javascript">
+	    	var base_url = <?php echo "\"".base_url()."\""; ?>
+	    </script>
+
 		{js_for_layout}
 	</body>
 </html>

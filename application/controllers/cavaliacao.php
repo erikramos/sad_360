@@ -43,4 +43,13 @@ class CAvaliacao extends cbase {
 		echo json_encode($dados);
 		die();
    	}
+
+   	function ajaxBuscarAvaliacoesPainel(){
+
+		$this->load->model('Avaliacao');
+		$dados = $this->Avaliacao->gridAvaliacoesPainel();
+
+		echo json_encode($dados);
+		die();
+   	}
 }
