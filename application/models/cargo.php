@@ -21,9 +21,13 @@ class Cargo extends CI_Model {
 
         foreach ($ret as $key => $value) {
 
+            $botoes = '<a href="#" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>';
+            $botoes .= '&nbsp;&nbsp;&nbsp;<a href="#" title="Excluir"><span class="glyphicon glyphicon-remove"></span></a>';
+
             $dados['dados'][$i][] = $value->ca_id;
             $dados['dados'][$i][] = $value->ca_descricao;
             $dados['dados'][$i][] = $value->ca_atribuicoes;
+            $dados['dados'][$i][] = $botoes;
             $i++;
         }
 
