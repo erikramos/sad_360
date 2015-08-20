@@ -20,6 +20,9 @@ class CCargo extends cbase {
 	public function __construct()
    	{
     	parent::__construct();
+
+    	//carrega o model necessario
+    	$this->load->model('Cargo');
    	}
 
    	function index(){
@@ -36,9 +39,30 @@ class CCargo extends cbase {
 		$this->load->view('Cargo/listar');			//carrega a view
 	}
 
+	function manter($id=null){
+
+		if(!is_null($id)){
+
+			die('editando');
+		}
+
+		$this->layout = 'default';					//informa qual template utilizar para carregar a view dentro
+		$this->title = '::: SAD-360 :::';			//informa o titulo da pagina
+		$this->css = array('Template/template');	//informa o arquivo css a ser carregado com layout da pagina
+		$this->js = array('Cargo/manter');			//informa o arquivo js com scripts de execução da pagina
+		$this->load->view('Cargo/manter');			//carrega a view
+	}
+
+	function salvar (){
+
+		$ca = new Cargo();
+		$ca->cadastrar($this->input->post());
+
+		$this->listar();
+	}
+
 	function ajaxBuscarCargos(){
 
-		$this->load->model('Cargo');
 		$dados = $this->Cargo->gridCargos();
 
 		echo json_encode($dados);

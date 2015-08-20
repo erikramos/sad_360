@@ -1,7 +1,7 @@
 
 
 <div class="row">
-    <a href="#" class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> Inserir</a>
+    <a href=<?php echo base_url("index.php/ccargo/manter") ?> class="btn btn-xs btn-info"><span class="glyphicon glyphicon-plus"></span> Inserir</a>
 </div>
 <div class="row">
     &nbsp;

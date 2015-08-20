@@ -2,8 +2,8 @@
 
 class Cargo extends CI_Model {
 
-    var $descricao   = '';
-    var $atribuicoes = '';
+    var $ca_descricao   = '';
+    var $ca_atribuicoes = '';
 
     function __construct()
     {
@@ -21,8 +21,8 @@ class Cargo extends CI_Model {
 
         foreach ($ret as $key => $value) {
 
-            $botoes = '<a href="#" title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>';
-            $botoes .= '&nbsp;&nbsp;&nbsp;<a href="#" title="Excluir"><span class="glyphicon glyphicon-remove"></span></a>';
+            $botoes = '<a href='.base_url("index.php/ccargo/manter/".$value->ca_id).' title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>';
+            $botoes .= '&nbsp;&nbsp;&nbsp;<a href='.base_url("index.php/ccargo/excluir/".$value->ca_id).' title="Excluir"><span class="glyphicon glyphicon-remove"></span></a>';
 
             $dados['dados'][$i][] = $value->ca_id;
             $dados['dados'][$i][] = $value->ca_descricao;
@@ -34,13 +34,14 @@ class Cargo extends CI_Model {
         return $dados;
     }
 
-    function insert_entry()
+    function cadastrar($dados)
     {
-        $this->title   = $_POST['title']; // please read the below note
-        $this->content = $_POST['content'];
-        $this->date    = time();
+        $this->ca_descricao   = trim($dados['ca_descricao']);
+        $this->ca_atribuicoes = trim($dados['ca_atribuicoes']);
 
-        $this->db->insert('entries', $this);
+        //die(var_dump($this));
+
+        $this->db->insert('cargo', $this);
     }
 
     function update_entry()
