@@ -41,24 +41,42 @@ class CCargo extends cbase {
 
 	function manter($id=null){
 
+		$dados = array();
+
 		if(!is_null($id)){
 
-			die('editando');
+			$ca = new Cargo();
+			$dados['dados'] = $ca->getById($id);
 		}
 
 		$this->layout = 'default';					//informa qual template utilizar para carregar a view dentro
 		$this->title = '::: SAD-360 :::';			//informa o titulo da pagina
 		$this->css = array('Template/template');	//informa o arquivo css a ser carregado com layout da pagina
 		$this->js = array('Cargo/manter');			//informa o arquivo js com scripts de execução da pagina
-		$this->load->view('Cargo/manter');			//carrega a view
+		$this->load->view('Cargo/manter',$dados);			//carrega a view
 	}
 
 	function salvar (){
 
-		$ca = new Cargo();
-		$ca->cadastrar($this->input->post());
+		$dados = $this->input->post();
 
-		$this->listar();
+		if($dados['ca_id'] != ""){
+			$ca = new Cargo();
+			$ca->alterar($dados);
+		}else{
+			$ca = new Cargo();
+			$ca->cadastrar($dados);
+		}
+
+		redirect(site_url() . '/ccargo/listar', 'refresh');
+	}
+
+	function excluir ($id){
+
+		$ca = new Cargo();
+		$ca->excluir($id);
+
+		redirect(site_url() . '/ccargo/listar', 'refresh');
 	}
 
 	function ajaxBuscarCargos(){

@@ -34,23 +34,34 @@ class Cargo extends CI_Model {
         return $dados;
     }
 
+    function getById($id){
+
+        $this->db->select('*');
+        $this->db->from('cargo');
+        $this->db->where('ca_id', $id);
+        $query = $this->db->get();
+        $ret = $query->result();
+
+        return $ret;
+    }
+
     function cadastrar($dados)
     {
         $this->ca_descricao   = trim($dados['ca_descricao']);
         $this->ca_atribuicoes = trim($dados['ca_atribuicoes']);
-
-        //die(var_dump($this));
-
         $this->db->insert('cargo', $this);
     }
 
-    function update_entry()
+    function alterar($dados)
     {
-        $this->title   = $_POST['title'];
-        $this->content = $_POST['content'];
-        $this->date    = time();
-
-        $this->db->update('entries', $this, array('id' => $_POST['id']));
+        $this->ca_descricao   = trim($dados['ca_descricao']);
+        $this->ca_atribuicoes = trim($dados['ca_atribuicoes']);
+        $this->db->update('cargo', $this, array('ca_id' => $dados['ca_id']));
     }
 
+    function excluir($id)
+    {
+        $this->db->where('ca_id', $id);
+        $this->db->delete('cargo');
+    }
 }
