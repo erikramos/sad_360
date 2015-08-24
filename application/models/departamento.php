@@ -2,8 +2,7 @@
 
 class Departamento extends CI_Model {
 
-    var $descricao   = '';
-    var $atribuicoes = '';
+    var $de_nome   = '';
 
     function __construct()
     {
@@ -21,30 +20,41 @@ class Departamento extends CI_Model {
 
         foreach ($ret as $key => $value) {
 
+            $botoes = '<center><a href='.base_url("index.php/cdepartamento/manter/".$value->de_id).' title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>';
+            $botoes .= '&nbsp;&nbsp;&nbsp;<a href='.base_url("index.php/cdepartamento/excluir/".$value->de_id).' title="Excluir"><span class="glyphicon glyphicon-remove"></span></a></center>';
+
             $dados['dados'][$i][] = $value->de_id;
             $dados['dados'][$i][] = $value->de_nome;
+            $dados['dados'][$i][] = $botoes;
             $i++;
         }
 
         return $dados;
     }
 
-    function insert_entry()
-    {
-        $this->title   = $_POST['title']; // please read the below note
-        $this->content = $_POST['content'];
-        $this->date    = time();
+    function getById($id){
 
-        $this->db->insert('entries', $this);
+        $this->db->select('*');
+        $this->db->from('departamento');
+        $this->db->where('de_id', $id);
+        $query = $this->db->get();
+        $ret = $query->result();
+
+        return $ret;
     }
 
-    function update_entry()
-    {
-        $this->title   = $_POST['title'];
-        $this->content = $_POST['content'];
-        $this->date    = time();
-
-        $this->db->update('entries', $this, array('id' => $_POST['id']));
+    function cadastrar($dados){
+        $this->de_nome   = trim($dados['de_nome']);
+        $this->db->insert('departamento', $this);
     }
 
+    function alterar($dados){
+        $this->de_nome = trim($dados['de_nome']);
+        $this->db->update('departamento', $this, array('de_id' => $dados['de_id']));
+    }
+
+    function excluir($id){
+        $this->db->where('de_id', $id);
+        $this->db->delete('departamento');
+    }
 }

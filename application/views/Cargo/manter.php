@@ -11,9 +11,17 @@
 		$cargo['ca_descricao'] = $dados[0]->ca_descricao;
 		$cargo['ca_atribuicoes'] = $dados[0]->ca_atribuicoes;
 	}
+
+	if($this->session->flashdata('erro')){
+
+		echo '<div class="alert alert-warning alert-dismissable">
+			  <button type="button" class="close" data-dismiss="alert">&times;</button>
+			  <strong>Aviso: </strong> '.$this->session->flashdata('erro').'
+			</div>';
+	}
 ?>
 
-<form class="form-horizontal" action=<?php echo base_url("index.php/ccargo/salvar") ?> method="post">
+<form id="formCargo" class="form-horizontal" action=<?php echo base_url("index.php/ccargo/salvar") ?> method="post">
 	<fieldset>
 
 		<!-- Form Name -->

@@ -20,6 +20,7 @@ class CAvaliacao extends cbase {
 	public function __construct()
    	{
     	parent::__construct();
+    	$this->load->model('Avaliacao');
    	}
 
    	function index(){
@@ -37,7 +38,6 @@ class CAvaliacao extends cbase {
 
 	function ajaxBuscarAvaliacoes(){
 
-		$this->load->model('Avaliacao');
 		$dados = $this->Avaliacao->gridAvaliacoes();
 
 		echo json_encode($dados);

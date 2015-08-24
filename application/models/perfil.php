@@ -2,8 +2,7 @@
 
 class Perfil extends CI_Model {
 
-    var $descricao   = '';
-    var $atribuicoes = '';
+    var $pe_descricao   = '';
 
     function __construct()
     {
@@ -21,30 +20,42 @@ class Perfil extends CI_Model {
 
         foreach ($ret as $key => $value) {
 
+            $botoes = '<center><a href='.base_url("index.php/cperfil/manter/".$value->pe_id).' title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>';
+            $botoes .= '&nbsp;&nbsp;&nbsp;<a href='.base_url("index.php/cperfil/excluir/".$value->pe_id).' title="Excluir"><span class="glyphicon glyphicon-remove"></span></a></center>';
+
             $dados['dados'][$i][] = $value->pe_id;
             $dados['dados'][$i][] = $value->pe_descricao;
+            $dados['dados'][$i][] = $botoes;
             $i++;
         }
 
         return $dados;
     }
 
-    function insert_entry()
-    {
-        $this->title   = $_POST['title']; // please read the below note
-        $this->content = $_POST['content'];
-        $this->date    = time();
+    function getById($id){
 
-        $this->db->insert('entries', $this);
+        $this->db->select('*');
+        $this->db->from('perfil');
+        $this->db->where('pe_id', $id);
+        $query = $this->db->get();
+        $ret = $query->result();
+
+        return $ret;
     }
 
-    function update_entry()
-    {
-        $this->title   = $_POST['title'];
-        $this->content = $_POST['content'];
-        $this->date    = time();
+    function cadastrar($dados){
+        $this->pe_descricao   = trim($dados['pe_descricao']);
+        $this->db->insert('perfil', $this);
+    }
 
-        $this->db->update('entries', $this, array('id' => $_POST['id']));
+    function alterar($dados){
+        $this->pe_descricao = trim($dados['pe_descricao']);
+        $this->db->update('perfil', $this, array('pe_id' => $dados['pe_id']));
+    }
+
+    function excluir($id){
+        $this->db->where('pe_id', $id);
+        $this->db->delete('perfil');
     }
 
 }

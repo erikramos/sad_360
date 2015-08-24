@@ -20,6 +20,7 @@ class CDepartamento extends cbase {
 	public function __construct()
    	{
     	parent::__construct();
+    	$this->load->model('Departamento');
    	}
 
    	function index(){
@@ -37,10 +38,55 @@ class CDepartamento extends cbase {
 
 	function ajaxBuscarDepartamentos(){
 
-		$this->load->model('Departamento');
 		$dados = $this->Departamento->gridDepartamentos();
 
 		echo json_encode($dados);
 		die();
    	}
+
+   	function manter($id=null){
+
+		$dados = array();
+
+		if(!is_null($id)){
+
+			$de = new Departamento();
+			$dados['dados'] = $de->getById($id);
+		}
+
+		$this->layout = 'default';					//informa qual template utilizar para carregar a view dentro
+		$this->title = '::: SAD-360 :::';			//informa o titulo da pagina
+		$this->css = array('Template/template');	//informa o arquivo css a ser carregado com layout da pagina
+		$this->js = array('Departamento/manter');			//informa o arquivo js com scripts de execução da pagina
+		$this->load->view('Departamento/manter',$dados);			//carrega a view
+	}
+
+	function salvar (){
+
+		$dados = $this->input->post();
+
+		if($dados['de_nome'] == ""){
+
+			$this->session->set_flashdata('erro', 'Preencha o nome do Departamento.');
+			redirect(site_url() . '/cdepartamento/manter', 'refresh');
+		}
+
+		if($dados['de_id'] != ""){
+			$de = new Departamento();
+			$de->alterar($dados);
+		}else{
+			$de = new Departamento();
+			$de->cadastrar($dados);
+		}
+
+		redirect(site_url() . '/cdepartamento/listar', 'refresh');
+	}
+
+	function excluir ($id){
+
+		$de = new Departamento();
+		$de->excluir($id);
+
+		redirect(site_url() . '/cdepartamento/listar', 'refresh');
+	}
 }

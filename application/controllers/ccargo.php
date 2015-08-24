@@ -60,6 +60,16 @@ class CCargo extends cbase {
 
 		$dados = $this->input->post();
 
+		if($dados['ca_descricao'] == ""){
+
+			$this->session->set_flashdata('erro', 'Preencha o campo Descricao.');
+			redirect(site_url() . '/ccargo/manter', 'refresh');
+		}else if($dados['ca_atribuicoes'] == ""){
+
+			$this->session->set_flashdata('erro', 'Preencha o campo Atribuicoes.');
+			redirect(site_url() . '/ccargo/manter', 'refresh');
+		}
+
 		if($dados['ca_id'] != ""){
 			$ca = new Cargo();
 			$ca->alterar($dados);

@@ -27,12 +27,15 @@ class Avaliacao extends CI_Model {
 
         foreach ($ret as $key => $value) {
 
+            $botoes = '<center><a href='.base_url("index.php/cavaliacao/manter/".$value->av_id).' title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>';
+            $botoes .= '&nbsp;&nbsp;&nbsp;<a href='.base_url("index.php/cavaliacao/excluir/".$value->av_id).' title="Excluir"><span class="glyphicon glyphicon-remove"></span></a></center>';
+
             $dados['dados'][$i][] = $value->av_id;
             $dados['dados'][$i][] = $value->av_titulo;
             $dados['dados'][$i][] = $value->av_descricao;
             $dados['dados'][$i][] = $value->av_data_cadastro;
             $dados['dados'][$i][] = $status[$value->av_status];
-            $dados['dados'][$i][] = 'botoes';
+            $dados['dados'][$i][] = $botoes;
             $i++;
         }
 
