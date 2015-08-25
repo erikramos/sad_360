@@ -43,6 +43,22 @@ class Perfil extends CI_Model {
         return $ret;
     }
 
+    function buscarPerfis(){
+
+        $this->db->select('pe_id, pe_descricao');
+        $this->db->from('perfil');
+        $query = $this->db->get();
+        $perfis = $query->result_array();
+
+        $ret = array();
+
+        foreach ($perfis as $key => $value) {
+            $ret[$value['pe_id']] = $value['pe_descricao'];
+        }
+
+        return $ret;
+    }
+
     function cadastrar($dados){
         $this->pe_descricao   = trim($dados['pe_descricao']);
         $this->db->insert('perfil', $this);

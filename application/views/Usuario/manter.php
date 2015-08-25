@@ -64,10 +64,7 @@
 		<div class="control-group">
 			<label class="control-label" for="selectbasic">Cargo</label>
 			<div class="controls">
-				<select id="selectbasic" name="selectbasic" class="input-xlarge">
-					<option>Option one</option>
-					<option>Option two</option>
-				</select>
+				<?=form_dropdown('ca_id', $cargos,$us['ca_id'],"id='ca_id'")?>
 			</div>
 		</div>
 
@@ -75,10 +72,7 @@
 		<div class="control-group">
 			<label class="control-label" for="selectbasic">Departamento</label>
 			<div class="controls">
-				<select id="selectbasic" name="selectbasic" class="input-xlarge">
-					<option>Option one</option>
-					<option>Option two</option>
-				</select>
+				<?=form_dropdown('de_id', $departamentos,$us['de_id'],"id='de_id'")?>
 			</div>
 		</div>
 
@@ -86,10 +80,7 @@
 		<div class="control-group">
 			<label class="control-label" for="selectbasic">Perfil</label>
 			<div class="controls">
-				<select id="selectbasic" name="selectbasic" class="input-xlarge">
-					<option>Option one</option>
-					<option selected>Option two</option>
-				</select>
+				<?=form_dropdown('pe_id', $perfis,$us['pe_id'],"id='pe_id'")?>
 			</div>
 		</div>
 

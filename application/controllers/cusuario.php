@@ -21,6 +21,9 @@ class CUsuario extends cbase {
    	{
     	parent::__construct();
     	$this->load->model('Usuario');
+    	$this->load->model('Cargo');
+    	$this->load->model('Departamento');
+    	$this->load->model('Perfil');
    	}
 
    	function index(){
@@ -53,6 +56,15 @@ class CUsuario extends cbase {
 			$us = new Usuario();
 			$dados['dados'] = $us->getById($id);
 		}
+
+		$ca = new Cargo();
+		$dados['cargos'] = $ca->buscarCargos();
+
+		$de = new Departamento();
+		$dados['departamentos'] = $de->buscarDepartamentos();
+
+		$pe = new Perfil();
+		$dados['perfis'] = $pe->buscarPerfis();
 
 		$this->layout = 'default';					//informa qual template utilizar para carregar a view dentro
 		$this->title = '::: SAD-360 :::';			//informa o titulo da pagina

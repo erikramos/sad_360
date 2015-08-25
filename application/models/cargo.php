@@ -45,6 +45,22 @@ class Cargo extends CI_Model {
         return $ret;
     }
 
+    function buscarCargos(){
+
+        $this->db->select('ca_id, ca_descricao');
+        $this->db->from('cargo');
+        $query = $this->db->get();
+        $cargos = $query->result_array();
+
+        $ret = array();
+
+        foreach ($cargos as $key => $value) {
+            $ret[$value['ca_id']] = $value['ca_descricao'];
+        }
+
+        return $ret;
+    }
+
     function cadastrar($dados)
     {
         $this->ca_descricao   = trim($dados['ca_descricao']);

@@ -43,6 +43,22 @@ class Departamento extends CI_Model {
         return $ret;
     }
 
+    function buscarDepartamentos(){
+
+        $this->db->select('de_id, de_nome');
+        $this->db->from('departamento');
+        $query = $this->db->get();
+        $dept = $query->result_array();
+
+        $ret = array();
+
+        foreach ($dept as $key => $value) {
+            $ret[$value['de_id']] = $value['de_nome'];
+        }
+
+        return $ret;
+    }
+
     function cadastrar($dados){
         $this->de_nome   = trim($dados['de_nome']);
         $this->db->insert('departamento', $this);
