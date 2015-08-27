@@ -2,8 +2,10 @@
 
 class Avaliacao extends CI_Model {
 
-    var $descricao   = '';
-    var $atribuicoes = '';
+    var $av_titulo   = '';
+    var $av_descricao = '';
+    var $av_data_cadastro = '';
+    var $av_status = '';
 
     function __construct()
     {
@@ -19,7 +21,7 @@ class Avaliacao extends CI_Model {
             2=>'<font color="blue">Finalizada</font>'
         );
 
-        $query = $this->db->get('avaliacao', 100);
+        $query = $this->db->get('avaliacao', 1000);
         $ret = $query->result();
 
         $dados = array();
@@ -28,7 +30,7 @@ class Avaliacao extends CI_Model {
         foreach ($ret as $key => $value) {
 
             $botoes = '<center><a href='.base_url("index.php/cavaliacao/manter/".$value->av_id).' title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>';
-            $botoes .= '&nbsp;&nbsp;&nbsp;<a href='.base_url("index.php/cavaliacao/excluir/".$value->av_id).' title="Excluir"><span class="glyphicon glyphicon-remove"></span></a></center>';
+            $botoes .= '&nbsp;&nbsp;&nbsp;<a href='.base_url("index.php/cavaliacao/excluir/".$value->av_id).' title="Alterar status"><span class="glyphicon glyphicon-random"></span></a></center>';
 
             $dados['dados'][$i][] = $value->av_id;
             $dados['dados'][$i][] = $value->av_titulo;
@@ -74,22 +76,57 @@ class Avaliacao extends CI_Model {
         return $dados;
     }
 
-    function insert_entry()
-    {
-        $this->title   = $_POST['title']; // please read the below note
-        $this->content = $_POST['content'];
-        $this->date    = time();
+    function getById($id){
 
-        $this->db->insert('entries', $this);
+        $this->db->select('*');
+        $this->db->from('avaliacao');
+        $this->db->where('av_id', $id);
+        $query = $this->db->get();
+        $ret = $query->result();
+
+        return $ret;
     }
 
-    function update_entry()
-    {
-        $this->title   = $_POST['title'];
-        $this->content = $_POST['content'];
-        $this->date    = time();
+    function cadastrar($dados){
+        // $this->us_nome   = trim($dados['us_nome']);
+        // $this->us_login   = trim($dados['us_login']);
+        // $this->us_senha   = md5(trim($dados['us_senha']));
+        // $this->ca_id   = trim($dados['ca_id']);
+        // $this->de_id   = trim($dados['de_id']);
+        // $this->pe_id   = trim($dados['pe_id']);
 
-        $this->db->update('entries', $this, array('id' => $_POST['id']));
+        // $this->db->insert('usuario', $this);
+    }
+
+    function alterar($dados){
+        // $this->us_nome   = trim($dados['us_nome']);
+        // $this->us_login   = trim($dados['us_login']);
+        // $this->us_senha   = md5(trim($dados['us_senha']));
+        // $this->ca_id   = trim($dados['ca_id']);
+        // $this->de_id   = trim($dados['de_id']);
+        // $this->pe_id   = trim($dados['pe_id']);
+
+        // $this->db->update('usuario', $this, array('us_id' => $dados['us_id']));
+    }
+
+    function excluir($id){
+
+        $this->db->select('*');
+        $this->db->from('avaliacao');
+        $this->db->where('av_id', $id);
+        $query = $this->db->get();
+        $ret = $query->result();
+
+        $this->av_titulo = $ret[0]->av_titulo;
+        $this->av_descricao = $ret[0]->av_descricao;
+        $this->av_data_cadastro = $ret[0]->av_data_cadastro;
+
+        if($ret[0]->av_status == 1)
+            $this->av_status   = 0;
+        else
+            $this->av_status   = 1;
+
+        $this->db->update('avaliacao', $this, array('av_id' => $id));
     }
 
 }
