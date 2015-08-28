@@ -21,6 +21,9 @@ class CBase extends CI_Controller {
     public function iniciaSessao() {
         if (!isset($_SESSION))
             session_start();
+
+            //temporariamente seta o usuario da sessao
+            $_SESSION['usuario']->us_id = 1;
     }
 
     /**

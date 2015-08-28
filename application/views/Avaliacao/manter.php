@@ -1,23 +1,15 @@
 
 <?php
 	if(!isset($dados)){
-		$us = array();
-		$us['us_id'] = "";
-		$us['us_nome'] = "";
-		$us['us_login'] = "";
-		$us['us_senha'] = "";
-		$us['ca_id'] = "";
-		$us['de_id'] = "";
-		$us['pe_id'] = "";
+		$av = array();
+		$av['av_id'] = "";
+		$av['av_titulo'] = "";
+		$av['av_descricao'] = "";
 	}else{
-		$us = array();
-		$us['us_id'] = $dados[0]->us_id;
-		$us['us_nome'] = $dados[0]->us_nome;
-		$us['us_login'] = $dados[0]->us_login;
-		$us['us_senha'] = $dados[0]->us_senha;
-		$us['ca_id'] = $dados[0]->ca_id;
-		$us['de_id'] = $dados[0]->de_id;
-		$us['pe_id'] = $dados[0]->pe_id;
+		$av = array();
+		$av['av_id'] = $dados[0]->av_id;
+		$av['av_titulo'] = $dados[0]->av_titulo;
+		$av['av_descricao'] = $dados[0]->av_descricao;
 	}
 
 	if($this->session->flashdata('erro')){
@@ -29,34 +21,26 @@
 	}
 ?>
 
-<form class="form-horizontal" action=<?php echo base_url("index.php/cusuario/salvar") ?> method="post">
+<form class="form-horizontal" action=<?php echo base_url("index.php/cavaliacao/salvar") ?> method="post">
 	<fieldset>
 
 		<!-- Form Name -->
-		<legend>Usuario</legend>
+		<legend>Avalia&ccedil;&atilde;o</legend>
 
 		<!-- Text input-->
 		<div class="control-group">
-			<label class="control-label" for="us_nome">Nome</label>
+			<label class="control-label" for="av_titulo">Titulo</label>
 			<div class="controls">
-				<input id="us_nome" name="us_nome" value=<?php echo "\"".$us['us_nome']."\""; ?> type="text" placeholder="Nome do usuario" size="50">
-				<input type="hidden" name="us_id" id="us_id" value=<?php echo "\"".$us['us_id']."\""; ?>>
+				<input id="av_titulo" name="av_titulo" value=<?php echo "\"".$av['av_titulo']."\""; ?> type="text" placeholder="Titulo" size="30">
+				<input type="hidden" name="av_id" id="av_id" value=<?php echo "\"".$av['av_id']."\""; ?>>
 			</div>
 		</div>
 
 		<!-- Text input-->
 		<div class="control-group">
-			<label class="control-label" for="us_login">Login</label>
+			<label class="control-label" for="av_descricao">Descri&ccedil;&atilde;o</label>
 			<div class="controls">
-				<input id="us_login" name="us_login" value=<?php echo "\"".$us['us_login']."\""; ?> type="text" placeholder="Login do usuario" size="30">
-			</div>
-		</div>
-
-		<!-- Text input-->
-		<div class="control-group">
-			<label class="control-label" for="us_senha">Senha</label>
-			<div class="controls">
-				<input type="password" id="us_senha" name="us_senha" value=<?php echo "\"".$us['us_senha']."\""; ?> type="text" placeholder="Senha do usuario" size="30">
+				<input id="av_descricao" name="av_descricao" value=<?php echo "\"".$av['av_descricao']."\""; ?> type="text" placeholder="Descri&ccedil;&atilde;o" size="80">
 			</div>
 		</div>
 

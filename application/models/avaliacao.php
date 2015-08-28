@@ -29,8 +29,8 @@ class Avaliacao extends CI_Model {
 
         foreach ($ret as $key => $value) {
 
-            $botoes = '<center><a href='.base_url("index.php/cavaliacao/manter/".$value->av_id).' title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>';
-            $botoes .= '&nbsp;&nbsp;&nbsp;<a href='.base_url("index.php/cavaliacao/excluir/".$value->av_id).' title="Alterar status"><span class="glyphicon glyphicon-random"></span></a></center>';
+            //$botoes = '<center><a href='.base_url("index.php/cavaliacao/manter/".$value->av_id).' title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>';
+            $botoes = '<center><a href='.base_url("index.php/cavaliacao/excluir/".$value->av_id).' title="Alterar status"><span class="glyphicon glyphicon-random"></span></a></center>';
 
             $dados['dados'][$i][] = $value->av_id;
             $dados['dados'][$i][] = $value->av_titulo;
@@ -88,17 +88,18 @@ class Avaliacao extends CI_Model {
     }
 
     function cadastrar($dados){
-        // $this->us_nome   = trim($dados['us_nome']);
-        // $this->us_login   = trim($dados['us_login']);
-        // $this->us_senha   = md5(trim($dados['us_senha']));
-        // $this->ca_id   = trim($dados['ca_id']);
-        // $this->de_id   = trim($dados['de_id']);
-        // $this->pe_id   = trim($dados['pe_id']);
 
-        // $this->db->insert('usuario', $this);
+        $this->av_titulo   = trim($dados['av_titulo']);
+        $this->av_descricao   = trim($dados['av_descricao']);
+        $this->av_data_cadastro   = date('Y-m-d H:i:s');
+        $this->av_status   = 0;
+        $this->us_id   = $_SESSION['usuario']->us_id;
+
+        $this->db->insert('avaliacao', $this);
     }
 
     function alterar($dados){
+
         // $this->us_nome   = trim($dados['us_nome']);
         // $this->us_login   = trim($dados['us_login']);
         // $this->us_senha   = md5(trim($dados['us_senha']));

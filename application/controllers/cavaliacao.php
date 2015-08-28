@@ -63,7 +63,6 @@ class CAvaliacao extends cbase {
 
    	function ajaxBuscarAvaliacoesPainel(){
 
-		$this->load->model('Avaliacao');
 		$dados = $this->Avaliacao->gridAvaliacoesPainel();
 
 		echo json_encode($dados);
@@ -74,29 +73,25 @@ class CAvaliacao extends cbase {
 
 		$dados = $this->input->post();
 
-		if($dados['us_nome'] == ""){
+		if($dados['av_titulo'] == ""){
 
-			$this->session->set_flashdata('erro', 'Preencha o nome do Usuario.');
-			redirect(site_url() . '/cusuario/manter', 'refresh');
-		}else if($dados['us_login'] == ""){
+			$this->session->set_flashdata('erro', 'Preencha o titulo da Avaliacao.');
+			redirect(site_url() . '/cavaliacao/manter', 'refresh');
+		}else if($dados['av_descricao'] == ""){
 
-			$this->session->set_flashdata('erro', 'Preencha o login do Usuario.');
-			redirect(site_url() . '/cusuario/manter', 'refresh');
-		}else if($dados['us_senha'] == ""){
-
-			$this->session->set_flashdata('erro', 'Informe a senha do Usuario.');
-			redirect(site_url() . '/cusuario/manter', 'refresh');
+			$this->session->set_flashdata('erro', 'Preencha a descricao da Avaliacao.');
+			redirect(site_url() . '/cavaliacao/manter', 'refresh');
 		}
 
-		if($dados['us_id'] != ""){
-			$us = new Usuario();
-			$us->alterar($dados);
+		if($dados['av_id'] != ""){
+			$av = new Avaliacao();
+			$av->alterar($dados);
 		}else{
-			$us = new Usuario();
-			$us->cadastrar($dados);
+			$av = new Avaliacao();
+			$av->cadastrar($dados);
 		}
 
-		redirect(site_url() . '/cusuario/listar', 'refresh');
+		redirect(site_url() . '/cavaliacao/listar', 'refresh');
 	}
 
 	function excluir ($id){
