@@ -7,11 +7,13 @@ class CBase extends CI_Controller {
 
         $this->iniciaSessao();
 
-        // if ($this->_checaPaginaExcecao()) {
+         if ($this->_checaPaginaExcecao()) {
 
-        //     $this->_checaAutenticado();
-        //     $this->_checaPermissao();
-        // }
+             //$this->_checaAutenticado();
+             //$this->_checaPermissao();
+            //temporariamente seta o usuario da sessao
+            $_SESSION['usuario'] = 1;
+         }
     }
 
 
@@ -21,9 +23,6 @@ class CBase extends CI_Controller {
     public function iniciaSessao() {
         if (!isset($_SESSION))
             session_start();
-
-            //temporariamente seta o usuario da sessao
-            $_SESSION['usuario']->us_id = 1;
     }
 
     /**
@@ -90,21 +89,19 @@ class CBase extends CI_Controller {
      * @return boolean (true - deve ser checada)
      */
     private function _checaPaginaExcecao() {
-        $lista_excecao[] = 'cautenticacao/index';
-        $lista_excecao[] = 'cautenticacao/formLogin';
-        $lista_excecao[] = 'cautenticacao/login';
-        $lista_excecao[] = 'cautenticacao/ajaxLogin';
-        $lista_excecao[] = 'cautenticacao/formEsqueciSenha';
-        $lista_excecao[] = 'cautenticacao/ajaxValidarCadastrado';
-        $lista_excecao[] = 'cautenticacao/ajaxEmailCodigo';
-        $lista_excecao[] = 'cautenticacao/alterarSenhaEmail';
-        $lista_excecao[] = 'cautenticacao/sair';
-        $lista_excecao[] = 'cusuario/semPermissao';
-        $lista_excecao[] = 'ccontroleboletos/imprimir';
 
-        //se acessar o controller cimportacao sem ser requisição do usuário é uma requisição CLI (no nosso caso o crontab chamando o agendamento de processamento de carga) por isso libera
-        if ($this->input->is_cli_request())
-            $lista_excecao[] = 'cimportacao/*';
+        $lista_excecao[] = 'clogin/index';
+
+        // $lista_excecao[] = 'cautenticacao/formLogin';
+        // $lista_excecao[] = 'cautenticacao/login';
+        // $lista_excecao[] = 'cautenticacao/ajaxLogin';
+        // $lista_excecao[] = 'cautenticacao/formEsqueciSenha';
+        // $lista_excecao[] = 'cautenticacao/ajaxValidarCadastrado';
+        // $lista_excecao[] = 'cautenticacao/ajaxEmailCodigo';
+        // $lista_excecao[] = 'cautenticacao/alterarSenhaEmail';
+        // $lista_excecao[] = 'cautenticacao/sair';
+        // $lista_excecao[] = 'cusuario/semPermissao';
+        // $lista_excecao[] = 'ccontroleboletos/imprimir';
 
         $acesso[] = $this->router->fetch_class() . '/' . $this->router->fetch_method();
         $acesso[] = $this->router->fetch_class() . '/*';

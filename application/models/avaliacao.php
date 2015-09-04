@@ -29,8 +29,10 @@ class Avaliacao extends CI_Model {
 
         foreach ($ret as $key => $value) {
 
-            //$botoes = '<center><a href='.base_url("index.php/cavaliacao/manter/".$value->av_id).' title="Editar"><span class="glyphicon glyphicon-pencil"></span></a>';
-            $botoes = '<center><a href='.base_url("index.php/cavaliacao/excluir/".$value->av_id).' title="Alterar status"><span class="glyphicon glyphicon-random"></span></a></center>';
+            $botoes = '<center><a href='.base_url("index.php/cavaliacao/listar_questoes/".$value->av_id).' title="Cadastrar questoes"><span class="glyphicon glyphicon-plus"></span></a>';
+            $botoes .= '&nbsp;&nbsp;&nbsp;<a href='.base_url("index.php/cavaliacao/excluir/".$value->av_id).' title="Alterar status"><span class="glyphicon glyphicon-random"></span></a></center>';
+
+            //die(var_dump($botoes));
 
             $dados['dados'][$i][] = $value->av_id;
             $dados['dados'][$i][] = $value->av_titulo;
@@ -93,7 +95,7 @@ class Avaliacao extends CI_Model {
         $this->av_descricao   = trim($dados['av_descricao']);
         $this->av_data_cadastro   = date('Y-m-d H:i:s');
         $this->av_status   = 0;
-        $this->us_id   = $_SESSION['usuario']->us_id;
+        $this->us_id   = $_SESSION['usuario'];
 
         $this->db->insert('avaliacao', $this);
     }
