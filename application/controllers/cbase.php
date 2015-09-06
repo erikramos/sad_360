@@ -9,10 +9,7 @@ class CBase extends CI_Controller {
 
          if ($this->_checaPaginaExcecao()) {
 
-             //$this->_checaAutenticado();
-             //$this->_checaPermissao();
-            //temporariamente seta o usuario da sessao
-            $_SESSION['usuario'] = 1;
+             $this->_checaAutenticado();
          }
     }
 
@@ -35,51 +32,11 @@ class CBase extends CI_Controller {
             return;
         }
 
-        if (! isset($_SESSION['usuario'])) {
-            // Comentado pois aparentemente não é usuado em lugar nenhum
-            // $_SESSION['url'] = current_url();
-            redirect(site_url() . '/cpainel/', 'refresh');
+        if (isset($_SESSION['usuario']) && !is_null($_SESSION['usuario'])) {
             return;
-        }
-
-        // A sessão existe, verifica se o id da sessão do usuário é igual ao da sessão no banco de dados
-        $this->db->select('COUNT(*) AS sessao_valida');
-        $this->db->from('usuario');
-        $this->db->where('us_login = "'.$_SESSION['usuario']->us_login.'"');
-        $this->db->where('us_senha = "'.$_SESSION['usuario']->us_senha.'"');
-        $this->db->where('us_sessao = "'.$_SESSION['usuario']->idSessao.'"');
-
-        $usSessao = $this->db->get()->row();
-
-        // Se o count for 0, significa que o usuário fez login em outra máquina
-        if ($usSessao->sessao_valida == 0) {
-            //redirect(site_url() . '/clogin/formLogin/10');
-        }
-
-    }
-
-    /**
-     * checa se o usuario tem permissao para acessar a pagina e o metodo
-     */
-    private function _checaPermissao() {
-        $rClass = $this->router->fetch_class() . '/' . $this->router->fetch_method();
-        $acessos[] = $this->router->fetch_class() . '/*';
-        $acessos[] = $rClass;
-        $acessos[] = $this->router->fetch_directory() . $rClass;
-
-        foreach ($acessos as $acesso) {
-            // Encontrou a permissão posso retornar a função
-            if ((in_array($acesso, $_SESSION['usuario']->controlador_autorizado)) === TRUE) {
-                return;
-            }
-        }
-
-        // Verifica se é uma requisição ajax
-        if ($this->input->is_ajax_request()) {
-            $this->output->set_status_header('401', 'Desculpe, voce nao tem permissao para esta acao.');
-            exit(1);
-        } else {
-            redirect(site_url() . '/cusuario/semPermissao', 'refresh');
+        }else{
+            $this->session->set_flashdata('erro', 'Realize o login no sistema.');
+            redirect(base_url("index.php/clogin/"), 'refresh');
         }
     }
 
@@ -91,17 +48,7 @@ class CBase extends CI_Controller {
     private function _checaPaginaExcecao() {
 
         $lista_excecao[] = 'clogin/index';
-
-        // $lista_excecao[] = 'cautenticacao/formLogin';
-        // $lista_excecao[] = 'cautenticacao/login';
-        // $lista_excecao[] = 'cautenticacao/ajaxLogin';
-        // $lista_excecao[] = 'cautenticacao/formEsqueciSenha';
-        // $lista_excecao[] = 'cautenticacao/ajaxValidarCadastrado';
-        // $lista_excecao[] = 'cautenticacao/ajaxEmailCodigo';
-        // $lista_excecao[] = 'cautenticacao/alterarSenhaEmail';
-        // $lista_excecao[] = 'cautenticacao/sair';
-        // $lista_excecao[] = 'cusuario/semPermissao';
-        // $lista_excecao[] = 'ccontroleboletos/imprimir';
+        $lista_excecao[] = 'clogin/logar';
 
         $acesso[] = $this->router->fetch_class() . '/' . $this->router->fetch_method();
         $acesso[] = $this->router->fetch_class() . '/*';

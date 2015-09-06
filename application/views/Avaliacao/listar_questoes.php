@@ -5,6 +5,9 @@
 <div class="row">
     <input type="hidden" name="av_id" id="av_id" value=<?php echo "\"".$av_id."\""; ?>>
 </div>
+<div class="row">
+    &nbsp;
+</div>
 
 <table id="grid_Avaliacoes_Questoes" class="display" cellspacing="0" width="100%">
     <thead>

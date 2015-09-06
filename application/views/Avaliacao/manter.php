@@ -44,6 +44,14 @@
 			</div>
 		</div>
 
+		<!-- select-->
+		<div class="control-group">
+			<label class="control-label" for="participantes">Participantes</label>
+			<div class="controls">
+				<?php echo form_dropdown('participantes[]', $usuarios, '', 'size=10 multiple="multiple"'); ?>
+			</div>
+		</div>
+
 		<!-- Button (Double) -->
 		<div class="control-group">
 			<label class="control-label" for="salvar"></label>

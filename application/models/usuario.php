@@ -57,10 +57,44 @@ class Usuario extends CI_Model {
         return $ret;
     }
 
+    function buscarSelectUsuarios(){
+
+        $dados = array();
+
+        $this->db->select('*');
+        $this->db->from('usuario');
+        $query = $this->db->get();
+        $ret = $query->result();
+
+        foreach ($ret as $key => $value) {
+            $dados[$value->us_id] = $value->us_nome;
+        }
+
+        return $dados;
+    }
+
+    function verificaLogin($dados){
+
+        $this->db->select('*');
+        $this->db->from('usuario');
+        $this->db->join('perfil', 'perfil.pe_id = usuario.pe_id');
+        $this->db->where('us_login', $dados['login']);
+        $this->db->where('us_senha', md5($dados['senha']));
+        $query = $this->db->get();
+        $ret = $query->result();
+
+        if(count($ret) == 0){
+            return false;
+        }else{
+            return $ret;
+        }
+    }
+
     function cadastrar($dados){
         $this->us_nome   = trim($dados['us_nome']);
         $this->us_login   = trim($dados['us_login']);
         $this->us_senha   = md5(trim($dados['us_senha']));
+        $this->us_data_cadastro = date('Y-m-d H:i:s');
         $this->ca_id   = trim($dados['ca_id']);
         $this->de_id   = trim($dados['de_id']);
         $this->pe_id   = trim($dados['pe_id']);
@@ -72,6 +106,7 @@ class Usuario extends CI_Model {
         $this->us_nome   = trim($dados['us_nome']);
         $this->us_login   = trim($dados['us_login']);
         $this->us_senha   = md5(trim($dados['us_senha']));
+        $this->us_data_cadastro = date('Y-m-d H:i:s');
         $this->ca_id   = trim($dados['ca_id']);
         $this->de_id   = trim($dados['de_id']);
         $this->pe_id   = trim($dados['pe_id']);

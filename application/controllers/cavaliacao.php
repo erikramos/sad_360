@@ -23,6 +23,7 @@ class CAvaliacao extends cbase {
     	$this->load->model('Avaliacao');
     	$this->load->model('Avaliacao_Questao');
     	$this->load->model('Avaliacao_Questao_Resposta');
+    	$this->load->model('Usuario');
    	}
 
    	function index(){
@@ -47,6 +48,9 @@ class CAvaliacao extends cbase {
 			$av = new Avaliacao();
 			$dados['dados'] = $av->getById($id);
 		}
+
+		$us = new Usuario();
+		$dados['usuarios'] = $us->buscarSelectUsuarios();
 
 		$this->layout = 'default';					//informa qual template utilizar para carregar a view dentro
 		$this->title = '::: SAD-360 :::';			//informa o titulo da pagina
@@ -121,6 +125,20 @@ class CAvaliacao extends cbase {
 		$this->load->view('Avaliacao/manter_resposta',$dados);	//carrega a view
 	}
 
+	function responder_avaliacao($av_id=null){
+
+		$dados = array();
+
+		$av = new Avaliacao();
+		$dados['dados'] = $av->getPerguntasRespostasAvaliacao($av_id);
+
+		$this->layout = 'default';								//informa qual template utilizar para carregar a view dentro
+		$this->title = '::: SAD-360 :::';						//informa o titulo da pagina
+		$this->css = array('Template/template');				//informa o arquivo css a ser carregado com layout da pagina
+		$this->js = array('Avaliacao/responder_avaliacao');			//informa o arquivo js com scripts de execução da pagina
+		$this->load->view('Avaliacao/responder_avaliacao',$dados);	//carrega a view
+	}
+
 	function ajaxBuscarAvaliacoes(){
 
 		$dados = $this->Avaliacao->gridAvaliacoes();
@@ -164,6 +182,10 @@ class CAvaliacao extends cbase {
 		}else if($dados['av_descricao'] == ""){
 
 			$this->session->set_flashdata('erro', 'Preencha a descricao da Avaliacao.');
+			redirect(site_url() . '/cavaliacao/manter', 'refresh');
+		}else if(!isset($dados['participantes'])){
+
+			$this->session->set_flashdata('erro', 'Selecione os participantes.');
 			redirect(site_url() . '/cavaliacao/manter', 'refresh');
 		}
 
@@ -218,6 +240,13 @@ class CAvaliacao extends cbase {
 		}
 
 		redirect(site_url() . '/cavaliacao/listar_respostas/'.$dados['aq_id'], 'refresh');
+	}
+
+	function salvar_avaliacao_respondida(){
+
+		$dados = $this->input->post();
+
+		die(var_dump($dados));
 	}
 
 	function excluir ($id){

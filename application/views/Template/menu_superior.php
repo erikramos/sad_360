@@ -1,3 +1,4 @@
+
 <nav class="navbar navbar-inverse" role="navigation">
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
@@ -15,8 +16,12 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li <?php if(strpos(uri_string(), "cpainel") !== false) echo 'class="active"'; ?> ><a href=<?php echo base_url("index.php/cpainel/") ?> >Painel</a></li>
-        <li <?php if(strpos(uri_string(), "crelatorio") !== false) echo 'class="active"'; ?> ><a href=<?php echo base_url("index.php/crelatorio/listar") ?> >Relat&oacute;rio</a></li>
 
+        <?php if($_SESSION['usuario'][0]->pe_descricao == 'Administrador') {?>
+          <li <?php if(strpos(uri_string(), "crelatorio") !== false) echo 'class="active"'; ?> ><a href=<?php echo base_url("index.php/crelatorio/listar") ?> >Relat&oacute;rio</a></li>
+        <?php } ?>
+
+        <?php if($_SESSION['usuario'][0]->pe_descricao == 'Administrador') {?>
         <li <?php if((strpos(uri_string(), "cavaliacao") !== false) ||
                     (strpos(uri_string(), "cusuario") !== false) ||
                     (strpos(uri_string(), "ccargo") !== false) ||
@@ -33,6 +38,7 @@
             <li <?php if(strpos(uri_string(), "cusuario") !== false) echo 'class="active"'; ?> ><a href=<?php echo base_url("index.php/cusuario/listar") ?> >Usu&aacute;rios</a></li>
           </ul>
         </li>
+        <?php } ?>
       </ul>
       <form class="navbar-form navbar-left" role="search">
         <div class="form-group">

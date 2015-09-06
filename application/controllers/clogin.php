@@ -20,6 +20,7 @@ class CLogin extends cbase {
 	public function __construct()
    	{
     	parent::__construct();
+    	$this->load->model('Usuario');
    	}
 
 	function index(){
@@ -33,14 +34,26 @@ class CLogin extends cbase {
 
 	function logar(){
 
-		//programar aqui o codigo para validar usuario e senha e redirecinar para pagina principal
+		$dados = $this->input->post();
 
-		redirect(base_url("index.php/cpainel/painel"), 'refresh');
+		$us = new Usuario();
+		$usuario = $us->verificaLogin($dados);
+
+		if($usuario !== false){
+			$_SESSION['usuario'] = $usuario;
+			redirect(base_url("index.php/cpainel/painel"), 'refresh');
+		}else{
+			$this->session->set_flashdata('erro', 'Login e/ou senha incorretos.');
+			redirect(base_url("index.php/clogin/"), 'refresh');
+		}
 	}
 
 	function sair(){
 
-		//finaliza a sessao
+		if (!isset($_SESSION))
+			session_destroy();
+
+		$_SESSION['usuario'] = null;
 
 		//redireciona para a pagina de login
 		redirect(base_url("index.php/clogin/"), 'refresh');
